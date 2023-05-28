@@ -2,8 +2,6 @@ import tkinter as tk
 import ttkbootstrap as ttk
 
 
-vis_calc = ""
-
 window = tk.Tk()
 window.title("Calculator")
 window.geometry("380x400")
