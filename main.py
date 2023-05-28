@@ -1,16 +1,8 @@
 import tkinter as tk
 import ttkbootstrap as ttk
 
-calc = ""
-vis_calc = ""
 
-def calc_(num):
-    global calc
-    if num=="=":
-        print(eval(calc))
-        calc = ""
-        return
-    calc =  f"{calc}{num}"
+vis_calc = ""
 
 window = tk.Tk()
 window.title("Calculator")
@@ -21,7 +13,26 @@ window.maxsize(380,400)
 output_frame = ttk.Frame(window)
 operator_frame = ttk.Frame(window)
 
-output_label = ttk.Label(output_frame,background="red")
+calc = tk.StringVar(value = "")
+disp = ""
+def calc_(num):
+    global disp
+    if disp=="" and num=="=":
+        return
+    if num == "=":
+        calc.set(eval(disp))
+        return
+    disp += num
+    if num=="/":
+        calc.set(value=calc.get()+chr(247))
+        return
+    if num=="*":
+        calc.set(value=calc.get()+"x")
+        return
+    calc.set(value = calc.get()+num)
+    return
+
+output_label = ttk.Label(output_frame,textvariable=calc,font=("Arial",25))
 operator_nums = ttk.Frame(operator_frame)
 operator_funcs = ttk.Frame(operator_frame)
 
@@ -45,7 +56,7 @@ equ = ttk.Button(operator_funcs,text="=",command=lambda :calc_("="))
 
 
 output_frame.place(relheight=0.2,relwidth=1)
-output_label.pack(expand=True,fill="both")
+output_label.pack(expand = True,fill="y",anchor="se")
 
 operator_frame.place(rely=0.2,relheight=1,relwidth=1)
 
