@@ -7,9 +7,10 @@ window.iconbitmap("images.ico")
 window.title("Calculator")
 window.geometry("380x400")
 window.minsize(380,400)
-window.maxsize(380,400)
+
 
 output_frame = ttk.Frame(window)
+
 operator_frame = ttk.Frame(window)
 
 calc = tk.StringVar(value = "")
@@ -68,8 +69,13 @@ def calc_(num):
         return
     calc.set(value = calc.get()+num)
     return
-
-output_label = ttk.Label(output_frame,textvariable=calc,font=("Arial",25))
+font_var = ("Arial",29)
+def text_size(event):
+    print(output_frame.winfo_height())
+    output_label.config(font=("Arial", int(output_frame.winfo_height()/2)))
+    return
+output_label = ttk.Label(output_frame,textvariable=calc,font=font_var)
+output_frame.bind("<Configure>",text_size)
 
 col1 = ttk.Frame(operator_frame)
 col2 = ttk.Frame(operator_frame)
