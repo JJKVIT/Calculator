@@ -72,15 +72,35 @@ def calc_(num):
 font_var = ("Arial",29)
 def text_size(event):
     print(output_frame.winfo_height())
-    output_label.config(font=("Arial", int(output_frame.winfo_height()/2)))
+    output_label.config(font=("Arial", int(output_frame.winfo_height()/1.75)))
     return
 output_label = ttk.Label(output_frame,textvariable=calc,font=font_var)
 output_frame.bind("<Configure>",text_size)
+
 
 col1 = ttk.Frame(operator_frame)
 col2 = ttk.Frame(operator_frame)
 col3 = ttk.Frame(operator_frame)
 col4 = ttk.Frame(operator_frame)
+
+def keypress(event):
+    if event.char.isnumeric() or event.char in ["/","*","+","-","."]:
+        calc_(event.char)
+    return
+def backspace(event):
+    calc_("cl")
+def enter(event):
+    calc_("=")
+def dele(event):
+    calc_("c")
+def history_del(event):
+    calc_("ce")
+
+window.bind("<Key>",keypress)
+window.bind("<BackSpace>", backspace)
+window.bind("<Return>",enter)
+window.bind("<Delete>",dele)
+window.bind("<Shift-Delete>",history_del)
 
 num1 = ttk.Button(col1,text="1",command=lambda :calc_("1"))
 num2 = ttk.Button(col2,text="2",command=lambda :calc_("2"))
