@@ -1,4 +1,5 @@
 import tkinter as tk
+#from tkinter import ttk
 import ttkbootstrap as ttk
 import math
 
@@ -18,6 +19,30 @@ disp = ""
 history = []
 def calc_(num):
     global disp,history
+    if num=="ce":
+        print(history)
+        history=[]
+        calc.set("")
+        his_update(eval(disp))
+        return
+    if num == "c":
+        calc.set("")
+        disp = ""
+        return
+    if num == "cl":
+        calc.set(calc.get()[0:-1])
+        disp = calc.get()
+        return
+    if num == "=":
+        try:
+            calc.set(eval(disp))
+            history.append([disp,eval(disp)])
+            his_update(eval(disp))
+        except:
+            calc.set("Invalid Syntax")
+        return
+    if len(calc.get()) >= 20:
+        return
     if num == "log":
         calc.set(f"log({calc.get()})")
         disp = f"(math.log({disp}))"
@@ -38,27 +63,7 @@ def calc_(num):
         calc.set(f"{calc.get()}²")
         disp = disp+"**2"
         return
-    if num=="ce":
-        print(history)
-        history=[]
-        calc.set("")
-        return
-    if num == "c":
-        calc.set("")
-        disp = ""
-        return
-    if num == "cl":
-        calc.set(calc.get()[0:-1])
-        disp = calc.get()
-        return
     if disp=="" and num=="=":
-        return
-    if num == "=":
-        try:
-            calc.set(eval(disp))
-            history.append([disp,eval(disp)])
-        except:
-            calc.set("Invalid Syntax")
         return
     disp += num
     if num=="/":
@@ -71,9 +76,12 @@ def calc_(num):
     return
 font_var = ("Arial",29)
 def text_size(event):
-    print(output_frame.winfo_height())
+    if(len(calc.get())) >= 7:
+        output_label.config(font=("Arial", int(output_frame.winfo_height() / 1.75/(len(calc.get())*0.15))))
+        return
     output_label.config(font=("Arial", int(output_frame.winfo_height()/1.75)))
     return
+
 output_label = ttk.Label(output_frame,textvariable=calc,font=font_var)
 output_frame.bind("<Configure>",text_size)
 
@@ -112,7 +120,7 @@ num7 = ttk.Button(col1,text="7",command=lambda :calc_("7"))
 num8 = ttk.Button(col2,text="8",command=lambda :calc_("8"))
 num9 = ttk.Button(col3,text="9",command=lambda :calc_("9"))
 num0 = ttk.Button(col2,text="0",command=lambda :calc_("0"))
-log = ttk.Button(col1,text="log()",command=lambda :calc_("log"))
+#log = ttk.Button(col1,text="log()",command=lambda :calc_("log"))
 decimal = ttk.Button(col3,text=".",command=lambda :calc_("."))
 sqrt = ttk.Button(col3,text="√",command=lambda :calc_("sqrt"))
 pow = ttk.Button(col2,text="x²",command=lambda :calc_("pow"))
@@ -128,7 +136,15 @@ delete = ttk.Button(col4,text="⌫",command=lambda :calc_("cl"))
 clear_history = ttk.Button(col2,text="CE",command=lambda :calc_("ce"))
 percent = ttk.Button(col1,text="%",command=lambda :calc_("%"))
 
+his_menu = ttk.Menubutton(output_frame,text="history")
+history_menu = ttk.Menu(his_menu)
+def his_update(char):
+    history_menu.add_radiobutton(label=char)
+
+his_menu["menu"] = history_menu
+
 output_frame.place(relheight=0.2,relwidth=1)
+his_menu.place(anchor="nw")
 output_label.pack(expand = True,fill="y",anchor="se")
 
 operator_frame.place(rely=0.2,relheight=0.8,relwidth=1)
@@ -144,7 +160,8 @@ one_by.pack(side="top",expand=True,fill="both")
 num7.pack(side="top",expand=True,fill="both")
 num4.pack(side="top",expand=True,fill="both")
 num1.pack(side="top",expand=True,fill="both")
-log.pack(side="top",expand=True,fill="both")
+
+
 
 pow.pack(side="top",expand=True,fill="both")
 clear.pack(side="top",expand=True,fill="both")
