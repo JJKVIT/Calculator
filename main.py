@@ -6,7 +6,7 @@ import math
 window = tk.Tk()
 window.iconbitmap("images.ico")
 window.title("Calculator")
-window.geometry("380x400")
+window.geometry("380x500")
 window.minsize(380,400)
 
 
@@ -120,10 +120,10 @@ num7 = ttk.Button(col1,text="7",command=lambda :calc_("7"))
 num8 = ttk.Button(col2,text="8",command=lambda :calc_("8"))
 num9 = ttk.Button(col3,text="9",command=lambda :calc_("9"))
 num0 = ttk.Button(col2,text="0",command=lambda :calc_("0"))
-#log = ttk.Button(col1,text="log()",command=lambda :calc_("log"))
+log = ttk.Button(col1,text="log()",command=lambda :calc_("log"))
 decimal = ttk.Button(col3,text=".",command=lambda :calc_("."))
 sqrt = ttk.Button(col3,text="√",command=lambda :calc_("sqrt"))
-pow = ttk.Button(col2,text="x²",command=lambda :calc_("pow"))
+pow_calc = ttk.Button(col2,text="x²",command=lambda :calc_("pow"))
 one_by = ttk.Button(col1,text="1/x",command=lambda :calc_("1/"))
 
 add = ttk.Button(col4,text="+",command=lambda :calc_("+"))
@@ -163,7 +163,7 @@ num1.pack(side="top",expand=True,fill="both")
 
 
 
-pow.pack(side="top",expand=True,fill="both")
+pow_calc.pack(side="top",expand=True,fill="both")
 clear.pack(side="top",expand=True,fill="both")
 sqrt.pack(side="top",expand=True,fill="both")
 num8.pack(side="top",expand=True,fill="both")
@@ -176,6 +176,7 @@ num9.pack(side="top",expand=True,fill="both")
 num6.pack(side="top",expand=True,fill="both")
 num3.pack(side="top",expand=True,fill="both")
 decimal.pack(side="top",expand=True,fill="both")
+log.pack(side="top",expand=True,fill="both")
 
 div.pack(side="top",expand=True,fill="both")
 prod.pack(side="top",expand=True,fill="both")
