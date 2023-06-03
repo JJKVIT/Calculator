@@ -4,10 +4,6 @@ import ttkbootstrap as ttk
 import math
 from configparser import ConfigParser
 
-"""
-
-window.mainloop()"""
-
 class Calculator(tk.Tk):
     def __init__(self):
         super().__init__()
