@@ -1,5 +1,4 @@
 import tkinter as tk
-#from tkinter import ttk
 import ttkbootstrap as ttk
 import math
 from configparser import ConfigParser
@@ -21,7 +20,7 @@ class Calculator(tk.Tk):
 class f_operator(ttk.Frame):
     def __init__(self,parent):
         super().__init__(parent)
-        self.place(rely=0.2, relheight=0.8, relwidth=1)
+        self.place(rely=0.3, relheight=0.7, relwidth=1)
         self.f_col()
         self.operators(parent)
 
@@ -96,7 +95,7 @@ class f_output(ttk.Frame):
         super().__init__(parent)
         self.calc = tk.StringVar(value="")
         self.disp = ""
-        self.place(relheight=0.2, relwidth=1)
+        self.place(rely=0.1,relheight=0.2, relwidth=1)
         self.font_var = ("Arial", 29)
         self.output_label = ttk.Label(self, textvariable=self.calc, font=self.font_var)
         self.output_label.pack(expand = True,fill="y",anchor="se")
@@ -105,10 +104,10 @@ class f_output(ttk.Frame):
         parent.bind("<Return>", self.enter)
         parent.bind("<Delete>", self.dele)
         parent.bind("<Shift-Delete>", self.history_del)
-        self.his_menu = ttk.Menubutton(self, text="history")
+        self.his_menu = ttk.Menubutton(parent, text="history")
         self.history_menu = ttk.Menu(self.his_menu)
         self.his_menu["menu"] = self.history_menu
-        self.his_menu.place(anchor="nw")
+        self.his_menu.place(relx= 0.747,relheight=0.1)
 
         def text_size(event):
             if (len(self.calc.get())) >= 7:
