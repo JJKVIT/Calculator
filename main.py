@@ -134,8 +134,8 @@ class f_output(ttk.Frame):
             return
         if num == "=":
             try:
+                self.his_update(eval(self.disp),self.calc.get(),self.disp)
                 self.calc.set(eval(self.disp))
-                self.his_update(eval(self.disp))
             except:
                 self.calc.set("Invalid Syntax")
             return
@@ -192,15 +192,14 @@ class f_output(ttk.Frame):
     def history_del(self,event):
         self.calc_("ce")
 
-    def his_update(self,char):
+    def his_update(self,char,equ=None,disp_equ=None):
         if char == "ce":
-            self.history_menu.destroy()
-            self.history_menu = ttk.Menu(self.his_menu)
+            self.history_menu.delete(0,'end')
             return
-        self.history_menu.add_radiobutton(label=char)
+        self.history_menu.add_command(label=f"{equ}={char}",command=lambda :self.reset(equ,disp_equ))
 
-
-
-
+    def reset(self,equ,disp_equ):
+        self.calc.set(equ)
+        self.disp = disp_equ
 
 Calculator()
